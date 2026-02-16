@@ -1,0 +1,26 @@
+.memo-sidenav {
+  width: 260px;
+  min-width: 260px;
+  border-right: 1px solid var(--sapGroup_TitleBorderColor);
+  background-color: var(--sapList_Background);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.memo-sidenav-header {
+  padding: 0.75rem 1rem;
+  font-weight: bold;
+  font-size: var(--sapFontHeader5Size);
+  color: var(--sapGroup_TitleTextColor);
+  border-bottom: 1px solid var(--sapGroup_TitleBorderColor);
+}
+
+.memo-sidenav-item-active {
+  border-left: 3px solid var(--sapSelectedColor) !important;
+  background-color: var(--sapList_SelectionBackgroundColor) !important;
+}
+
+.memo-sidenav-item-unread [ui5-li] {
+  font-weight: bold;
+}

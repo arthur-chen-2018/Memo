@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "cds-mcp": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@cap-js/mcp-server"]
+    },
+    "fiori-mcp": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@sap-ux/fiori-mcp-server"]
+    },
+    "ui5-mcp": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@ui5/mcp-server"]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "cds-mcp",
+    "fiori-mcp",
+    "ui5-mcp"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)"
+    ]
+  }
+}

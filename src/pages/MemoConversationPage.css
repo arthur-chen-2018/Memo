@@ -1,0 +1,29 @@
+.memo-conversation-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.memo-conversation-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.memo-conversation-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.memo-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.memo-attr ui5-label {
+  font-size: var(--sapFontSmallSize);
+  color: var(--sapNeutralColor);
+}

@@ -1,0 +1,49 @@
+/* Unread rows: bold text */
+.memo-table-row-unread td {
+  font-weight: bold;
+}
+
+/* Organization colors */
+.memo-table-org-hv {
+  color: var(--sapInformationColor);
+  font-weight: 600;
+}
+
+.memo-table-org-voc {
+  color: var(--sapWarningColor);
+  font-weight: 600;
+}
+
+/* Icon colors */
+.memo-table-warning-icon {
+  color: var(--sapWarningColor);
+  cursor: help;
+}
+
+.memo-table-chat-icon {
+  color: var(--sapNeutralColor);
+}
+
+.memo-table-attach-icon {
+  color: var(--sapNeutralColor);
+}
+
+.memo-table-error-icon {
+  color: var(--sapNegativeColor);
+  cursor: help;
+}
+
+/* Unread badge */
+.memo-table-unread-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background-color: var(--sapInformationColor);
+  color: var(--sapContent_ContrastTextColor, #fff);
+  font-size: var(--sapFontSmallSize);
+  font-weight: bold;
+}

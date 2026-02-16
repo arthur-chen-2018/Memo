@@ -1,0 +1,15 @@
+.memo-list-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.memo-list-content {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  overflow: auto;
+}
+
+.memo-list-header {
+  margin-bottom: 1rem;
+}
