@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<OverflowToolbar id="filterToolbar" class="sapUiSmallMarginBottom">
+		<Label text="{i18n>filterJobNumber}" labelFor="filterJobNumber" />
+		<Input id="filterJobNumber" placeholder="e.g. JOB-78901" width="10rem" />
+
+		<Label text="{i18n>filterWorkOrder}" labelFor="filterWorkOrder" />
+		<Input id="filterWorkOrder" placeholder="e.g. 40001234" width="10rem" />
+
+		<Label text="{i18n>filterStream}" labelFor="filterStream" />
+		<Input id="filterStream" placeholder="e.g. STR-0042" width="10rem" />
+
+		<Label text="{i18n>filterStatus}" labelFor="filterStatus" />
+		<MultiComboBox id="filterStatus" placeholder="Select status" width="14rem">
+			<core:Item key="New" text="New" />
+			<core:Item key="Released" text="Released" />
+			<core:Item key="In Progress" text="In Progress" />
+			<core:Item key="Technically Complete" text="Technically Complete" />
+			<core:Item key="Closed" text="Closed" />
+		</MultiComboBox>
+
+		<Label text="{i18n>filterMemoType}" labelFor="filterMemoType" />
+		<Select id="filterMemoType" width="10rem">
+			<core:Item key="" text="All Types" />
+			<core:Item key="Access Issue" text="Access Issue" />
+			<core:Item key="Additional Works" text="Additional Works" />
+			<core:Item key="Unavailability" text="Unavailability" />
+			<core:Item key="Other" text="Other" />
+		</Select>
+
+		<ToolbarSpacer />
+		<Button text="Go" type="Emphasized" press=".onFilterGo" />
+		<Button text="Clear" press=".onFilterClear" />
+	</OverflowToolbar>
+
+</core:FragmentDefinition>

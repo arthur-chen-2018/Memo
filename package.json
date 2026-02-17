@@ -1,27 +1,40 @@
 {
-  "name": "memo-app",
-  "private": true,
-  "version": "0.1.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@ui5/webcomponents": "~2.19.0",
-    "@ui5/webcomponents-fiori": "~2.19.0",
-    "@ui5/webcomponents-icons": "~2.19.0",
-    "@ui5/webcomponents-react": "~2.19.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router": "^7.13.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.7.0",
-    "typescript": "^5.5.0",
-    "vite": "^6.3.5"
-  }
+	"name": "memo.app",
+	"version": "1.0.0",
+	"description": "UI5 Application: memo.app",
+	"author": "artha",
+	"license": "Apache-2.0",
+	"scripts": {
+		"clean": "rimraf dist coverage",
+		"build": "ui5 build --clean-dest",
+		"build:opt": "ui5 build self-contained --clean-dest --all",
+		"start": "ui5 serve --port 8080 -o index.html",
+		"start-cdn": "ui5 serve --port 8080 -o index-cdn.html",
+		"start-coverage": "ui5 serve --port 8080 --config ui5-coverage.yaml",
+		"start:dist": "npm start -- --config ui5-dist.yaml",
+		"start:dist-cdn": "npm run start-cdn -- --config ui5-dist.yaml",
+		"ts-typecheck": "tsc --noEmit",
+		"lint": "eslint webapp",
+		"ui5lint": "ui5lint",
+		"test-runner": "ui5-test-runner --url http://localhost:8080/test/testsuite.qunit.html",
+		"test-runner-coverage": "ui5-test-runner --url http://localhost:8080/test/testsuite.qunit.html --coverage -ccb 50 -ccf 40 -ccl 50 -ccs 50",
+		"test-ui5": "ui5-test-runner --start start-coverage --url http://localhost:8080/test/testsuite.qunit.html --coverage -ccb 50 -ccf 40 -ccl 50 -ccs 50",
+		"test": "npm run lint && npm run test-ui5",
+		"test:e2e": "node test/e2e/run.mjs"
+	},
+	"devDependencies": {
+		"@sapui5/types": "1.144.1",
+		"@ui5/cli": "^4.0.23",
+		"@ui5/linter": "^1.19.0",
+		"babel-plugin-istanbul": "^7.0.0",
+		"eslint": "^9.34.0",
+		"globals": "^16.3.0",
+		"playwright": "^1.58.2",
+		"rimraf": "^6.0.1",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.41.0",
+		"ui5-middleware-livereload": "^3.1.2",
+		"ui5-test-runner": "^5.9.1",
+		"ui5-tooling-transpile": "^3.9.0"
+	}
 }

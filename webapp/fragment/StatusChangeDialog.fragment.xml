@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<Dialog
+		id="statusChangeDialog"
+		title="{i18n>statusChangeTitle}">
+		<content>
+			<VBox class="sapUiSmallMargin" width="320px">
+				<Label text="{i18n>newStatusLabel}" class="sapUiSmallMarginBottom" />
+				<Select
+					id="statusSelect"
+					selectedKey="{viewModel>/newStatus}"
+					width="100%"
+					items="{viewModel>/validTransitions}">
+					<core:Item key="{viewModel>}" text="{viewModel>}" />
+				</Select>
+				<MessageStrip
+					text="{i18n>closedInfo}"
+					type="Information"
+					showCloseButton="false"
+					visible="{= ${viewModel>/validTransitions}.length === 0 }"
+					class="sapUiSmallMarginTop" />
+			</VBox>
+		</content>
+		<beginButton>
+			<Button
+				text="{i18n>confirmBtn}"
+				type="Emphasized"
+				press=".onStatusConfirm"
+				enabled="{= !!${viewModel>/newStatus} }" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>cancelBtn}" press=".onStatusCancel" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>

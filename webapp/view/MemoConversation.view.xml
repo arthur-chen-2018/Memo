@@ -1,0 +1,138 @@
+<mvc:View
+	controllerName="memo.app.controller.MemoConversation"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:uxap="sap.uxap"
+	xmlns:f="sap.f">
+
+	<Page
+		id="conversationPage"
+		showHeader="false"
+		showNavButton="true"
+		navButtonPress=".onNavBack">
+
+		<content>
+			<HBox class="memoConversationBody">
+				<!-- Sidebar -->
+				<core:Fragment fragmentName="memo.app.fragment.MemoSideList" type="XML" />
+
+				<!-- Main content -->
+				<VBox class="memoConversationMain">
+					<!-- Open memo warning -->
+					<MessageStrip
+						id="openMemoWarning"
+						text="{viewModel>/openMemoWarningText}"
+						type="Warning"
+						showCloseButton="false"
+						visible="{= ${viewModel>/openMemoCount} > 1 }"
+						class="sapUiSmallMarginTop sapUiSmallMarginBeginEnd" />
+
+					<uxap:ObjectPageLayout id="objectPageLayout" useIconTabBar="true">
+						<uxap:headerTitle>
+							<uxap:ObjectPageDynamicHeaderTitle>
+								<uxap:breadcrumbs>
+									<Breadcrumbs>
+										<Link text="Memo List" press=".onNavBack" />
+									</Breadcrumbs>
+								</uxap:breadcrumbs>
+								<uxap:heading>
+									<Title text="{= 'WO ' + ${viewModel>/memo/workOrderNumber} + ' / Task ' + ${viewModel>/memo/taskNumber} }" />
+								</uxap:heading>
+								<uxap:content>
+									<Text text="{= 'Notification ' + ${viewModel>/memo/notificationNumber} + ' \u00b7 ' + ${viewModel>/memo/jobNumber} }" />
+								</uxap:content>
+								<uxap:actions>
+									<Button text="{i18n>replyBtn}" type="Emphasized" icon="sap-icon://response" press=".onFocusCompose" />
+									<Button text="{i18n>addAttachmentBtn}" icon="sap-icon://attachment" press=".onNavigateToAttachments" />
+									<Button text="{i18n>changeStatusBtn}" icon="sap-icon://status-positive" press=".onChangeStatusPress" />
+									<Button text="{i18n>newMemoBtn}" icon="sap-icon://add" press=".onNewMemoPress" />
+								</uxap:actions>
+							</uxap:ObjectPageDynamicHeaderTitle>
+						</uxap:headerTitle>
+						<uxap:headerContent>
+							<FlexBox wrap="Wrap" class="sapUiSmallMarginBeginEnd">
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Status" />
+									<ObjectStatus
+										text="{viewModel>/memo/status}"
+										state="{
+											path: 'viewModel>/memo/status',
+											formatter: '.formatter.statusState'
+										}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Memo Type" />
+									<Text text="{viewModel>/memo/memoType}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Job Number" />
+									<Text text="{viewModel>/memo/jobNumber}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Stream Number" />
+									<Text text="{viewModel>/memo/streamNumber}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Serial Number" />
+									<Text text="{viewModel>/memo/serialNumber}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Created By" />
+									<Text text="{viewModel>/memo/createdBy}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Created Date" />
+									<Text text="{viewModel>/memo/createdDate}" />
+								</VBox>
+								<VBox class="memoAttr sapUiMediumMarginEnd">
+									<Label text="Last Updated" />
+									<Text text="{viewModel>/memo/lastUpdated}" />
+								</VBox>
+							</FlexBox>
+						</uxap:headerContent>
+						<uxap:sections>
+							<uxap:ObjectPageSection
+								id="messagesSection"
+								title="{= 'Messages (' + ${viewModel>/messages}.length + ')' }"
+								titleUppercase="false">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<core:Fragment fragmentName="memo.app.fragment.MessagesTab" type="XML" />
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection
+								id="attachmentsSection"
+								title="{= 'Attachments (' + ${viewModel>/attachments}.length + ')' }"
+								titleUppercase="false">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<core:Fragment fragmentName="memo.app.fragment.AttachmentsTab" type="XML" />
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection
+								id="detailsSection"
+								title="{i18n>detailsTab}"
+								titleUppercase="false">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<core:Fragment fragmentName="memo.app.fragment.MemoDetailsTab" type="XML" />
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+						</uxap:sections>
+					</uxap:ObjectPageLayout>
+				</VBox>
+			</HBox>
+		</content>
+	</Page>
+
+</mvc:View>

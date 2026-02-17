@@ -1,0 +1,30 @@
+<mvc:View
+	controllerName="memo.app.controller.App"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f">
+
+	<f:ShellBar
+		id="shellBar"
+		title="Memo App"
+		homeIconPressed=".onHomePress"
+		showNotifications="true"
+		notificationsNumber="{app>/unreadCount}">
+		<f:profile>
+			<Avatar initials="CU" displaySize="XS" backgroundColor="Accent6" />
+		</f:profile>
+		<f:additionalContent>
+			<OverflowToolbarButton
+				id="shellBarErrors"
+				icon="sap-icon://alert"
+				text="Errors"
+				tooltip="Error Monitor ({app>/errorCount})"
+				type="Transparent"
+				press=".onErrorsPress" />
+		</f:additionalContent>
+	</f:ShellBar>
+
+	<App id="appContainer" />
+
+</mvc:View>

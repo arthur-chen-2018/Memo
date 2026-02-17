@@ -1,0 +1,108 @@
+<mvc:View
+	controllerName="memo.app.controller.MemoList"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:layout="sap.ui.layout">
+
+	<Page
+		id="memoListPage"
+		showHeader="false"
+		class="sapUiResponsiveContentPadding">
+
+		<content>
+			<FlexBox
+				class="memoListHeader"
+				justifyContent="SpaceBetween"
+				alignItems="Center">
+				<Title text="{i18n>memoListTitle}" level="H3" />
+				<Button
+					text="{i18n>newMemoBtn}"
+					icon="sap-icon://add"
+					type="Emphasized"
+					press=".onNewMemoPress" />
+			</FlexBox>
+
+			<!-- Filter Bar -->
+			<core:Fragment fragmentName="memo.app.fragment.MemoFilterBar" type="XML" />
+
+			<!-- Memo Table -->
+			<Table
+				id="memoTable"
+				items="{app>/memos}"
+				mode="None"
+				growing="true"
+				growingThreshold="20"
+				sticky="ColumnHeaders"
+				class="sapUiSmallMarginTop">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title text="{= ${app>/memos}.length + ' Memos'}" level="H5" />
+						<ToolbarSpacer />
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="8rem"><Text text="{i18n>colJobNumber}" /></Column>
+					<Column width="9rem"><Text text="{i18n>colWorkOrder}" /></Column>
+					<Column width="8rem"><Text text="{i18n>colNotification}" /></Column>
+					<Column width="4.5rem"><Text text="{i18n>colTask}" /></Column>
+					<Column width="7.5rem"><Text text="{i18n>colStream}" /></Column>
+					<Column width="9rem"><Text text="{i18n>colMemoType}" /></Column>
+					<Column width="11rem"><Text text="{i18n>colStatus}" /></Column>
+					<Column width="10rem"><Text text="{i18n>colLastMessageFrom}" /></Column>
+					<Column width="10rem"><Text text="{i18n>colLastUpdated}" /></Column>
+					<Column width="8rem"><Text text="{i18n>colMessages}" /></Column>
+					<Column width="7rem"><Text text="{i18n>colAttachments}" /></Column>
+				</columns>
+				<items>
+					<ColumnListItem
+						type="Active"
+						press=".onMemoPress"
+						class="{= ${app>unreadCount} > 0 ? 'memoRowUnread' : '' }">
+						<Text text="{app>jobNumber}" />
+						<HBox alignItems="Center">
+							<Text text="{app>workOrderNumber}" />
+							<core:Icon
+								src="sap-icon://alert"
+								class="woWarningIcon sapUiTinyMarginBegin"
+								visible="{= ${app>workOrderNumber} !== undefined}"
+								tooltip="Multiple open memos" />
+						</HBox>
+						<Text text="{app>notificationNumber}" />
+						<Text text="{app>taskNumber}" />
+						<Text text="{app>streamNumber}" />
+						<Text text="{app>memoType}" />
+						<ObjectStatus
+							text="{app>status}"
+							state="{
+								path: 'app>status',
+								formatter: '.formatter.statusState'
+							}"
+							icon="{= ${app>status} === 'New' ? 'sap-icon://hint' : ${app>status} === 'Released' ? 'sap-icon://sys-enter-2' : ${app>status} === 'In Progress' ? 'sap-icon://synchronize' : ${app>status} === 'Technically Complete' ? 'sap-icon://complete' : 'sap-icon://locked' }" />
+						<Text
+							text="{app>lastMessageFrom}"
+							class="{= ${app>lastMessageFrom} === 'Homes Victoria' ? 'orgHV' : 'orgVOC' }" />
+						<Text text="{app>lastUpdated}" />
+						<HBox alignItems="Center">
+							<core:Icon src="sap-icon://discussion" class="sapUiTinyMarginEnd" />
+							<Text text="{app>messageCount}" />
+							<HBox visible="{= ${app>unreadCount} > 0 }" class="sapUiTinyMarginBegin">
+								<Text text="{app>unreadCount}" class="unreadBadge" />
+							</HBox>
+							<core:Icon
+								src="sap-icon://error"
+								class="msgErrorIcon sapUiTinyMarginBegin"
+								visible="{app>hasFailedResponse}"
+								tooltip="Last response to HV failed" />
+						</HBox>
+						<HBox alignItems="Center">
+							<core:Icon src="sap-icon://attachment" class="sapUiTinyMarginEnd" />
+							<Text text="{app>attachmentCount}" />
+						</HBox>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Page>
+
+</mvc:View>

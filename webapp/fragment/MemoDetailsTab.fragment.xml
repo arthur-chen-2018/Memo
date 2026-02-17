@@ -1,0 +1,102 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form">
+
+	<VBox class="sapUiSmallMargin">
+		<!-- HV API Fields -->
+		<Panel headerText="{i18n>hvApiFields}" expandable="true" expanded="true">
+			<form:Form editable="false">
+				<form:layout>
+					<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+				</form:layout>
+				<form:formContainers>
+					<form:FormContainer>
+						<form:formElements>
+							<form:FormElement label="Job Number">
+								<form:fields>
+									<Text text="{viewModel>/memo/jobNumber}" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Stream Number">
+								<form:fields>
+									<Text text="{viewModel>/memo/streamNumber}" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Serial Number">
+								<form:fields>
+									<Text text="{viewModel>/memo/serialNumber}" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Originator">
+								<form:fields>
+									<Text text="{viewModel>/memo/createdBy}" />
+								</form:fields>
+							</form:FormElement>
+						</form:formElements>
+					</form:FormContainer>
+				</form:formContainers>
+			</form:Form>
+		</Panel>
+
+		<!-- SAP Mapping -->
+		<Panel headerText="{i18n>sapMapping}" expandable="true" expanded="true" class="sapUiSmallMarginTop">
+			<form:Form editable="false">
+				<form:layout>
+					<form:ColumnLayout columnsM="2" columnsL="3" columnsXL="4" />
+				</form:layout>
+				<form:formContainers>
+					<form:FormContainer>
+						<form:formElements>
+							<form:FormElement label="Notification Number">
+								<form:fields>
+									<Text text="{viewModel>/memo/notificationNumber}" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Task Number">
+								<form:fields>
+									<Text text="{viewModel>/memo/taskNumber}" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Code Group">
+								<form:fields>
+									<Text text="Memos" />
+								</form:fields>
+							</form:FormElement>
+							<form:FormElement label="Code">
+								<form:fields>
+									<Text text="{viewModel>/memo/memoType}" />
+								</form:fields>
+							</form:FormElement>
+						</form:formElements>
+					</form:FormContainer>
+				</form:formContainers>
+			</form:Form>
+		</Panel>
+
+		<!-- Activity Log -->
+		<Panel headerText="{i18n>activityLogHeader}" expandable="true" expanded="true" class="sapUiSmallMarginTop">
+			<Table
+				id="activityLogTable"
+				items="{viewModel>/activityLog}"
+				mode="None"
+				sticky="ColumnHeaders">
+				<columns>
+					<Column width="10rem"><Text text="{i18n>colTimestamp}" /></Column>
+					<Column width="10rem"><Text text="{i18n>colAction}" /></Column>
+					<Column width="12rem"><Text text="{i18n>colPerformedBy}" /></Column>
+					<Column><Text text="{i18n>colDetails}" /></Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<Text text="{viewModel>timestamp}" />
+						<Text text="{viewModel>action}" />
+						<Text text="{viewModel>performedBy}" />
+						<Text text="{viewModel>details}" />
+					</ColumnListItem>
+				</items>
+			</Table>
+		</Panel>
+	</VBox>
+
+</core:FragmentDefinition>

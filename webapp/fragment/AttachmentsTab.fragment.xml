@@ -1,0 +1,57 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:unified="sap.ui.unified">
+
+	<VBox class="sapUiSmallMargin">
+		<FlexBox justifyContent="End" class="sapUiSmallMarginBottom">
+			<unified:FileUploader
+				id="attachmentUploader"
+				sendXHR="false"
+				buttonOnly="true"
+				buttonText="Upload Attachment"
+				icon="sap-icon://add"
+				style="Emphasized"
+				change=".onUploadAttachment" />
+		</FlexBox>
+
+		<Table
+			id="attachmentsTable"
+			items="{viewModel>/attachments}"
+			mode="None"
+			sticky="ColumnHeaders">
+			<columns>
+				<Column width="16rem"><Text text="File" /></Column>
+				<Column width="8rem"><Text text="Type" /></Column>
+				<Column width="6rem"><Text text="Size" /></Column>
+				<Column width="9rem"><Text text="Uploaded By" /></Column>
+				<Column width="10rem"><Text text="Upload Date" /></Column>
+				<Column width="8rem"><Text text="{i18n>colActions}" /></Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<HBox alignItems="Center">
+						<core:Icon src="sap-icon://document" class="sapUiTinyMarginEnd" />
+						<Link text="{viewModel>fileName}" press=".onAttachmentPress" />
+					</HBox>
+					<Text text="{viewModel>fileType}" />
+					<Text text="{viewModel>fileSize}" />
+					<Text
+						text="{viewModel>uploadedBy}"
+						class="{= ${viewModel>uploadedBy} === 'Homes Victoria' ? 'orgHV' : 'orgVOC' }" />
+					<Text text="{viewModel>uploadDate}" />
+					<HBox>
+						<Button icon="sap-icon://download" type="Transparent" tooltip="{i18n>viewerDownload}" />
+						<Button
+							icon="sap-icon://delete"
+							type="Transparent"
+							tooltip="{i18n>viewerDelete}"
+							visible="{= ${viewModel>uploadedBy} === 'VOC' }"
+							press=".onDeleteAttachment" />
+					</HBox>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</VBox>
+
+</core:FragmentDefinition>

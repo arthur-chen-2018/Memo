@@ -1,0 +1,91 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<Dialog
+		id="attachmentViewerDialog"
+		stretch="true"
+		showHeader="false"
+		class="attachmentViewerOverlay"
+		escapeHandler=".onViewerClose">
+		<content>
+			<VBox height="100%">
+				<!-- Top bar -->
+				<HBox class="attachmentViewerTopbar" alignItems="Center" justifyContent="SpaceBetween">
+					<HBox alignItems="Center">
+						<Text text="{viewModel>/viewerAttachment/fileName}" class="viewerFilename sapUiSmallMarginEnd" />
+						<Text text="{= (${viewModel>/viewerIndex} + 1) + ' of ' + ${viewModel>/viewerAttachments}.length }" class="viewerCounter" />
+					</HBox>
+					<HBox alignItems="Center">
+						<Button
+							icon="sap-icon://navigation-left-arrow"
+							type="Transparent"
+							press=".onViewerPrev"
+							enabled="{viewModel>/viewerHasPrev}"
+							tooltip="{i18n>viewerPrev}"
+							class="viewerNavBtn" />
+						<Button
+							icon="sap-icon://navigation-right-arrow"
+							type="Transparent"
+							press=".onViewerNext"
+							enabled="{viewModel>/viewerHasNext}"
+							tooltip="{i18n>viewerNext}"
+							class="viewerNavBtn" />
+						<Button
+							icon="sap-icon://download"
+							type="Transparent"
+							tooltip="{i18n>viewerDownload}"
+							class="viewerNavBtn" />
+						<Button
+							icon="sap-icon://delete"
+							type="Transparent"
+							tooltip="{i18n>viewerDelete}"
+							visible="{= ${viewModel>/viewerAttachment/uploadedBy} === 'VOC' }"
+							class="viewerNavBtn" />
+						<Button
+							icon="sap-icon://decline"
+							type="Transparent"
+							press=".onViewerClose"
+							tooltip="{i18n>viewerClose}"
+							class="viewerNavBtn" />
+					</HBox>
+				</HBox>
+
+				<!-- Preview area -->
+				<VBox class="attachmentViewerContent" justifyContent="Center" alignItems="Center">
+					<VBox class="viewerPreviewPlaceholder" alignItems="Center">
+						<core:Icon src="sap-icon://document" size="4rem" color="#999" />
+						<Text text="{viewModel>/viewerAttachment/fileName}" class="sapUiSmallMarginTop" />
+						<Text text="{= ${viewModel>/viewerAttachment/fileType}.indexOf('image') >= 0 ? 'Image preview (mock data)' : ${viewModel>/viewerAttachment/fileType} === 'application/pdf' ? 'PDF viewer placeholder' : 'Preview not available' }" class="sapUiTinyMarginTop" />
+						<Text text="{viewModel>/viewerAttachment/fileSize}" />
+					</VBox>
+				</VBox>
+
+				<!-- Metadata bar -->
+				<HBox class="attachmentViewerMetadata" alignItems="Center">
+					<HBox class="sapUiMediumMarginEnd">
+						<Text text="Uploaded By: " class="metaLabel" />
+						<Text text="{viewModel>/viewerAttachment/uploadedBy}" class="{= ${viewModel>/viewerAttachment/uploadedBy} === 'Homes Victoria' ? 'metaHV' : 'metaVOC' }" />
+					</HBox>
+					<HBox class="sapUiMediumMarginEnd">
+						<Text text="Size: " class="metaLabel" />
+						<Text text="{viewModel>/viewerAttachment/fileSize}" />
+					</HBox>
+					<HBox>
+						<Text text="Date: " class="metaLabel" />
+						<Text text="{viewModel>/viewerAttachment/uploadDate}" />
+					</HBox>
+				</HBox>
+
+				<!-- Thumbnail strip -->
+				<HBox
+					id="viewerThumbStrip"
+					class="attachmentViewerThumbs"
+					visible="{= ${viewModel>/viewerAttachments}.length > 1 }">
+					<!-- Thumbnails rendered programmatically -->
+				</HBox>
+			</VBox>
+		</content>
+	</Dialog>
+
+</core:FragmentDefinition>

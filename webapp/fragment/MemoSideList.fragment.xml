@@ -1,0 +1,25 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+
+	<VBox class="memoSidebar">
+		<Text text="{i18n>sidebarTitle}" class="memoSidebarHeader" />
+		<List
+			id="sidebarList"
+			items="{viewModel>/woMemos}"
+			mode="None"
+			itemPress=".onSidebarItemPress">
+			<StandardListItem
+				title="{= 'Task ' + ${viewModel>taskNumber} + ' \u00b7 ' + ${viewModel>streamNumber} }"
+				description="{= ${viewModel>memoType} + ' \u00b7 ' + ${viewModel>lastUpdated} }"
+				info="{viewModel>status}"
+				infoState="{
+					path: 'viewModel>status',
+					formatter: '.formatter.statusState'
+				}"
+				type="Active"
+				class="{= ${viewModel>id} === ${viewModel>/currentMemoId} ? 'sidebarItemActive' : '' }" />
+		</List>
+	</VBox>
+
+</core:FragmentDefinition>

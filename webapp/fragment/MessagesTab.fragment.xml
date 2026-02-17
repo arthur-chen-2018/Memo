@@ -1,0 +1,52 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<VBox>
+		<!-- Info strip -->
+		<MessageStrip
+			text="{i18n>infoStripMsg}"
+			type="Information"
+			showCloseButton="false"
+			class="sapUiSmallMargin" />
+
+		<!-- Messages thread -->
+		<VBox id="messagesThread" class="messagesThread">
+			<!-- Messages are rendered programmatically in controller -->
+		</VBox>
+
+		<!-- Compose area -->
+		<VBox class="messagesCompose">
+			<Text text="{i18n>composeHint}" class="composeHelper" />
+			<HBox alignItems="End" width="100%">
+				<TextArea
+					id="composeTextArea"
+					value="{viewModel>/replyText}"
+					placeholder="{i18n>composePlaceholder}"
+					rows="5"
+					growing="true"
+					growingMaxLines="6"
+					width="100%">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</TextArea>
+				<Button
+					icon="sap-icon://attachment"
+					type="Transparent"
+					tooltip="{i18n>addAttachmentBtn}"
+					class="sapUiTinyMarginBegin" />
+				<Button
+					id="sendButton"
+					icon="sap-icon://paper-plane"
+					type="Emphasized"
+					press=".onSendMessage"
+					tooltip="Send"
+					enabled="{= !!${viewModel>/replyText} &amp;&amp; !${viewModel>/sending} }"
+					class="sapUiTinyMarginBegin" />
+			</HBox>
+		</VBox>
+	</VBox>
+
+</core:FragmentDefinition>

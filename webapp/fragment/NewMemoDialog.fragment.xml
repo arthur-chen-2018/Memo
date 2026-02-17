@@ -1,0 +1,119 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:unified="sap.ui.unified">
+
+	<Dialog
+		id="newMemoDialog"
+		title="{i18n>newMemoTitle}"
+		contentWidth="480px"
+		escapeHandler=".onNewMemoCancel">
+		<content>
+			<VBox class="sapUiSmallMarginTop sapUiSmallMarginBottom">
+				<form:Form
+					id="newMemoForm"
+					editable="true">
+					<form:layout>
+						<form:ColumnLayout columnsM="1" columnsL="1" columnsXL="1" />
+					</form:layout>
+					<form:formContainers>
+						<form:FormContainer>
+							<form:formElements>
+								<form:FormElement label="{i18n>jobNumberLabel}">
+									<form:fields>
+										<Input value="{viewModel>/newMemo/jobNumber}" editable="false" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>workOrderLabel}">
+									<form:fields>
+										<Input
+											id="newMemoWO"
+											value="{viewModel>/newMemo/workOrderNumber}"
+											liveChange=".onNewMemoFieldChange" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>notificationLabel}">
+									<form:fields>
+										<Input value="{viewModel>/newMemo/notificationNumber}" editable="false" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>memoTypeLabel}">
+									<form:fields>
+										<Select
+											id="newMemoType"
+											selectedKey="{viewModel>/newMemo/memoType}"
+											valueState="{viewModel>/newMemoErrors/memoType}"
+											valueStateText="{i18n>memoTypeRequired}"
+											change=".onNewMemoFieldChange">
+											<core:Item key="" text="{i18n>selectType}" />
+											<core:Item key="Access Issue" text="Access Issue" />
+											<core:Item key="Additional Works" text="Additional Works" />
+											<core:Item key="Unavailability" text="Unavailability" />
+											<core:Item key="Other" text="Other" />
+										</Select>
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>priorityLabel}">
+									<form:fields>
+										<Select selectedKey="{viewModel>/newMemo/priority}">
+											<core:Item key="Normal" text="{i18n>priorityNormal}" />
+											<core:Item key="Urgent" text="{i18n>priorityUrgent}" />
+										</Select>
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>subjectLabel}">
+									<form:fields>
+										<Input
+											id="newMemoSubject"
+											value="{viewModel>/newMemo/subject}"
+											maxLength="40"
+											valueState="{viewModel>/newMemoErrors/subject}"
+											valueStateText="{i18n>subjectRequired}"
+											liveChange=".onNewMemoFieldChange" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>messageLabel}">
+									<form:fields>
+										<TextArea
+											id="newMemoMessage"
+											value="{viewModel>/newMemo/message}"
+											rows="5"
+											growing="true"
+											growingMaxLines="10"
+											valueState="{viewModel>/newMemoErrors/message}"
+											valueStateText="{i18n>messageRequired}"
+											liveChange=".onNewMemoFieldChange" />
+									</form:fields>
+								</form:FormElement>
+								<form:FormElement label="{i18n>attachmentsLabel}">
+									<form:fields>
+										<unified:FileUploader
+											id="newMemoFileUploader"
+											sendXHR="false"
+											buttonOnly="true"
+											buttonText="{i18n>addFileBtn}"
+											icon="sap-icon://add"
+											style="Transparent"
+											change=".onNewMemoFileChange" />
+									</form:fields>
+								</form:FormElement>
+							</form:formElements>
+						</form:FormContainer>
+					</form:formContainers>
+				</form:Form>
+			</VBox>
+		</content>
+		<beginButton>
+			<Button
+				text="{= ${viewModel>/newMemo/submitting} ? ${i18n>submittingBtn} : ${i18n>submitBtn} }"
+				type="Emphasized"
+				press=".onNewMemoSubmit"
+				enabled="{= !${viewModel>/newMemo/submitting} }" />
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>cancelBtn}" press=".onNewMemoCancel" />
+		</endButton>
+	</Dialog>
+
+</core:FragmentDefinition>
