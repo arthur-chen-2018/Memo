@@ -28,6 +28,8 @@ export default class MemoConversationController extends BaseController {
 	private _newMemoDialog: Dialog;
 	private _viewerDialog: Dialog;
 
+	private _resizeHandler: { onMouseMove: (e: MouseEvent) => void; onMouseUp: () => void } | null = null;
+
 	public onInit(): void {
 		const viewModel = new JSONModel({
 			memo: null as Memo,
@@ -56,6 +58,51 @@ export default class MemoConversationController extends BaseController {
 		this.setModel(viewModel, "viewModel");
 
 		this.getRouter().getRoute("memoConversation").attachPatternMatched(this._onRouteMatched, this);
+		this._initSidebarResize();
+	}
+
+	/* ===== Sidebar Resize ===== */
+
+	private _initSidebarResize(): void {
+		this.getView().addEventDelegate({
+			onAfterRendering: () => {
+				const handle = document.querySelector(".sidebarResizeHandle") as HTMLElement;
+				if (!handle || handle.dataset.bound) return;
+				handle.dataset.bound = "true";
+				handle.addEventListener("mousedown", (e: MouseEvent) => this._onResizeStart(e));
+			}
+		});
+	}
+
+	private _onResizeStart(e: MouseEvent): void {
+		e.preventDefault();
+		const sidebar = document.querySelector(".memoSidebar") as HTMLElement;
+		const body = document.querySelector(".memoConversationBody") as HTMLElement;
+		const handle = document.querySelector(".sidebarResizeHandle") as HTMLElement;
+		if (!sidebar || !body) return;
+
+		handle?.classList.add("resizing");
+		body.classList.add("resizing");
+		const startX = e.clientX;
+		const startWidth = sidebar.getBoundingClientRect().width;
+
+		this._resizeHandler = {
+			onMouseMove: (ev: MouseEvent) => {
+				const newWidth = Math.max(180, Math.min(600, startWidth + (ev.clientX - startX)));
+				sidebar.style.width = newWidth + "px";
+				sidebar.style.minWidth = newWidth + "px";
+			},
+			onMouseUp: () => {
+				handle?.classList.remove("resizing");
+				body.classList.remove("resizing");
+				document.removeEventListener("mousemove", this._resizeHandler!.onMouseMove);
+				document.removeEventListener("mouseup", this._resizeHandler!.onMouseUp);
+				this._resizeHandler = null;
+			}
+		};
+
+		document.addEventListener("mousemove", this._resizeHandler.onMouseMove);
+		document.addEventListener("mouseup", this._resizeHandler.onMouseUp);
 	}
 
 	/* ===== Route handling ===== */

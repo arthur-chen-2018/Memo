@@ -367,6 +367,49 @@ html, body {
 	color: var(--memo-hv-color) !important;
 }
 
+/* Sidebar resize handle */
+.sidebarResizeHandle {
+	width: 5px;
+	cursor: col-resize;
+	background: transparent;
+	position: relative;
+	z-index: 5;
+	flex-shrink: 0;
+	transition: background-color var(--memo-transition);
+}
+
+.sidebarResizeHandle::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 3px;
+	height: 32px;
+	border-radius: 3px;
+	background: var(--sapScrollBar_FaceColor, rgba(0, 0, 0, 0.15));
+	opacity: 0;
+	transition: opacity var(--memo-transition);
+}
+
+.sidebarResizeHandle:hover {
+	background: var(--memo-hv-color);
+}
+
+.sidebarResizeHandle:hover::after {
+	opacity: 1;
+}
+
+.sidebarResizeHandle.resizing {
+	background: var(--memo-hv-color);
+}
+
+/* Prevent text selection during resize */
+.memoConversationBody.resizing {
+	user-select: none;
+	cursor: col-resize;
+}
+
 /* Conversation main area */
 .memoConversationMain {
 	flex: 1;

@@ -17,6 +17,9 @@
 				<!-- Sidebar -->
 				<core:Fragment fragmentName="memo.app.fragment.MemoSideList" type="XML" />
 
+				<!-- Resize handle -->
+				<core:HTML id="sidebarResizeHandle" content="&lt;div class='sidebarResizeHandle'&gt;&lt;/div&gt;" />
+
 				<!-- Main content -->
 				<VBox class="memoConversationMain">
 					<!-- Open memo warning -->
