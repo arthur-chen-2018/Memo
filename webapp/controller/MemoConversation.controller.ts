@@ -108,29 +108,34 @@ export default class MemoConversationController extends BaseController {
 
 		const allAttachments = messages.flatMap(m => m.attachments);
 
-		messages.forEach(msg => {
+		messages.forEach((msg, _idx) => {
 			const isHV = msg.sender === "Homes Victoria";
 			const cardClass = `messageCard ${isHV ? "messageCardHV" : "messageCardVOC"}`;
 
 			// Build card content
 			const card = new VBox({ class: cardClass });
 
-			// Header: avatar + meta
+			// Header: avatar + sender/meta row
+			const initial = msg.senderName.charAt(0).toUpperCase();
 			const avatarHtml = new HTML({
-				content: `<div class="messageAvatar ${isHV ? "avatarHV" : "avatarVOC"}">${msg.senderName.charAt(0)}</div>`
+				content: `<div class="messageAvatar ${isHV ? "avatarHV" : "avatarVOC"}">${initial}</div>`
 			});
 
 			const senderText = new Text({
-				text: `${msg.sender} \u2014 ${msg.senderName}`,
+				text: msg.senderName,
 				class: `messageSender ${isHV ? "senderHV" : "senderVOC"}`
+			});
+
+			const orgLabel = new HTML({
+				content: `<span class="messageOrgLabel ${isHV ? "orgLabelHV" : "orgLabelVOC"}">${msg.sender}</span>`
 			});
 
 			const typeChipHtml = new HTML({
 				content: `<span class="messageTypeChip ${formatter.messageTypeClass(msg.messageType)}">${msg.messageType}</span>`
 			});
 
-			const senderRow = new HBox({ alignItems: "Center", items: [senderText, typeChipHtml] }).addStyleClass("sapUiTinyMarginBegin");
-			const timestampText = new Text({ text: msg.timestamp, class: "messageTimestamp" });
+			const senderRow = new HBox({ alignItems: "Center", items: [senderText, orgLabel, typeChipHtml] }).addStyleClass("sapUiTinyMarginBegin");
+			const timestampText = new Text({ text: msg.timestamp, class: "messageTimestamp sapUiTinyMarginBegin" });
 			const metaBox = new VBox({ items: [senderRow, timestampText] });
 			const headerBox = new HBox({ alignItems: "Center", items: [avatarHtml, metaBox] }).addStyleClass("sapUiSmallMarginBottom");
 			card.addItem(headerBox);
@@ -159,7 +164,7 @@ export default class MemoConversationController extends BaseController {
 					const chip = new HBox({
 						alignItems: "Center",
 						items: [
-							new Icon({ src: "sap-icon://attachment" }),
+							new Icon({ src: "sap-icon://attachment", size: "0.75rem" }),
 							new Text({ text: att.fileName }).addStyleClass("sapUiTinyMarginBegin")
 						]
 					}).addStyleClass("messageAttachmentChip");

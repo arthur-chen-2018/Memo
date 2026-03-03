@@ -16,6 +16,13 @@
 		</f:profile>
 		<f:additionalContent>
 			<OverflowToolbarButton
+				id="shellBarHome"
+				icon="sap-icon://home"
+				text="Home"
+				tooltip="Go to Memo List"
+				type="Transparent"
+				press=".onHomePress" />
+			<OverflowToolbarButton
 				id="shellBarErrors"
 				icon="sap-icon://alert"
 				text="Errors"
